@@ -1,6 +1,6 @@
 # Gene-level Hardy-Weinberg Equilibrium Packag
 
-This R package provides tools for conducting exact tests under the Hardy-Weinberg Equilibrium (HWE) with adjustments for inbreeding, represented by the parameter theta. The implementation is based on this [paper](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1199378/). 
+This R package provides tools for conducting exact tests under the Hardy-Weinberg Equilibrium (HWE) with adjustments for inbreeding, represented by the parameter theta. The implementation is the work of [Wigginton](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1199378/) and [Weir](https://academic.oup.com/genetics/article/180/3/1609/6063905). 
 
 ## Features
 * Exact Testing for HWE: Perform precise statistical tests to assess if a population is in Hardy-Weinberg equilibrium.
