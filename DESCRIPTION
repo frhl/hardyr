@@ -9,12 +9,9 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends:
-    R (>= 3.6),
-    data.table,
-    Rcpp
+    R (>= 3.6)
 Suggests:
     devtools,
-    writexl,
     testthat (>= 2.1.0)
 RoxygenNote: 7.2.3
 Collate:
