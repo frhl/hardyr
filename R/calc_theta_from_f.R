@@ -6,6 +6,8 @@
 #' @param pA Numeric, the frequency of the minor allele in the population.
 #' @param f Numeric, the inbreeding coefficient.
 #'
+#' @details This functions come from https://cran.r-project.org/web/packages/HardyWeinberg/index.html
+#' 
 #' @return Numeric, the calculated theta value.
 #'
 #' @examples
