@@ -30,7 +30,7 @@ This function first calculates the log of the numerator, which includes the term
 heterozygotes weighted by the theta parameter, and the factorial of the total number of individuals (N).
 It then subtracts the log of the denominator, which includes the factorials of the number of AA homozygotes,
 AB heterozygotes, and BB homozygotes. Finally, it subtracts the log of the normalizing constant C, calculated
-by `calc_log_normalizing_constant`, to obtain the final log probability.
+by `calc_log_norm_c`, to obtain the final log probability.
 
 The function ensures that the calculated number of AA and BB homozygotes are integers, as required for
 valid configurations in a diploid population.

@@ -16,6 +16,7 @@ Suggests:
 RoxygenNote: 7.2.3
 Collate:
     'calc_log_p_hets.R'
-    'calc_log_normalizing_constant.R'
+    'calc_log_norm_c.R'
+    'calc_norm_c.R'
     'hwe_exact_test.R'
     'misc.R'

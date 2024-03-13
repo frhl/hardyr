@@ -17,7 +17,7 @@
 #' heterozygotes weighted by the theta parameter, and the factorial of the total number of individuals (N).
 #' It then subtracts the log of the denominator, which includes the factorials of the number of AA homozygotes,
 #' AB heterozygotes, and BB homozygotes. Finally, it subtracts the log of the normalizing constant C, calculated
-#' by `calc_log_normalizing_constant`, to obtain the final log probability.
+#' by `calc_log_norm_c`, to obtain the final log probability.
 #'
 #' The function ensures that the calculated number of AA and BB homozygotes are integers, as required for
 #' valid configurations in a diploid population.
@@ -49,7 +49,7 @@ calc_log_p_hets <- function(N, nA, nAB, theta) {
   log_first_term <- log_numerator - log_denom 
   
   # get final probability
-  log_c <- calc_log_normalizing_constant(N, nA, nB, theta)
+  log_c <- calc_log_norm_c(N, nA, nB, theta)
   log_probability <- log_first_term - log_c
   
   return(log_probability)

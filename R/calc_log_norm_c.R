@@ -16,15 +16,15 @@
 #' nA <- 21
 #' nB <- 2 * N - nA
 #' theta <- 4
-#' calc_log_normalizing_constant(N, nA, nB, theta)
+#' calc_log_norm_c(N, nA, nB, theta)
 #'
 #' @export
 
-calc_log_normalizing_constant <- function(N, nA, nB, theta) {
+calc_log_norm_c <- function(N, nA, nB, theta) {
   
   log_C <- -Inf 
   is_odd <- as.integer(nA%%2==1)
-  
+  log_terms <- c()
   # Iterate over all possible n'AB values to compute the log of C
   for(n_prime_AB in seq(is_odd, nA, by = 2)) {
     n_prime_AA <- (nA - n_prime_AB) / 2
@@ -33,12 +33,12 @@ calc_log_normalizing_constant <- function(N, nA, nB, theta) {
     # calculate numerator and denominate serperatly
     numerator <- (n_prime_AB/2) * log(theta) + lfactorial(N)
     denom <- (lfactorial(n_prime_AA) + lfactorial(n_prime_AB) + lfactorial(n_prime_BB))
-    log_term <- numerator-denom
-    
-    # log-sum-exp trick for numerical stability
-    max_log <- max(log_C, log_term)
-    log_C <- max_log + log(exp(log_C - max_log) + exp(log_term - max_log))
+    value <- numerator-denom
+    log_terms <- c(log_terms, value)
   }
-  
+  log_C <- log_sum_exp(log_terms)
   return(log_C)
 }
+
+
+
