@@ -39,6 +39,8 @@ ggplot(out, aes(x=pA, y=power)) +
   facet_grid(F_label~N_label)
 ```
 
+![Example Image](img/sim_power01.png "Simulations of power")
+
 Exact tests for the P-values can also be easily performed for large numbers:
 ```
 library(hardyr)
