@@ -10,7 +10,15 @@ devtools::install_github("frhl/hardyr")
 ```
 
 ## Usage
-Power calculation can be done for various population structures and sizes. Here is an example getting power for a populations across the MAF spectrum:
+Exact tests for the P-values can also be easily performed for large numbers:
+```
+library(hardyr)
+N <- 100000
+nA <- 1000  # minor allle count
+nAB <- 990 # heterozygotes
+hwe_exact_test(N, nA, nAB, theta = 4, alternative = "less")
+```
+The theta parameter can be changed with `calc_theta_from_f(pA, f)` to test for HWE after accounting for inbreeding. Power calculation can be done for various population structures and sizes. Here is an example getting power for a populations across the MAF spectrum:
 ```
 library(hardyr)
 library(ggplot2)
@@ -40,16 +48,6 @@ ggplot(out, aes(x=pA, y=power)) +
 ```
 
 ![Example Image](img/sim_power01.png "Simulations of power")
-
-Exact tests for the P-values can also be easily performed for large numbers:
-```
-library(hardyr)
-N <- 100000
-nA <- 1000  # minor allle count
-nAB <- 990 # heterozygotes
-hwe_exact_test(N, nA, nAB, theta = 4, alternative = "less")
-```
-The theta parameter can be changed with `calc_theta_from_f(pA, f)` to test for HWE after accounting for inbreeding.
 
 
 ## License
