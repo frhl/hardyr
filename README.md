@@ -47,7 +47,7 @@ ggplot(out, aes(x=pA, y=power)) +
   facet_grid(F_label~N_label)
 ```
 
-![Example Image](img/sim_power01.png "Simulations of power")
+<img src="img/sim_power01.png" width=50% height=50%>
 
 
 ## License
