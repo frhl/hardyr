@@ -10,25 +10,41 @@ devtools::install_github("frhl/hardyr")
 ```
 
 ## Usage
-Exact tests for the P-values can also be easily performed for large numbers:
+The `hardyr` package allows for precise hypothesis testing concerning Hardy-Weinberg equilibrium (HWE), even with large sample sizes. Below are examples demonstrating how to perform exact tests for P-values and conduct power calculations across a range of population structures and minor allele frequencies (MAFs).
+
+### Performing Exact HWE Testing
+You can perform an exact test for HWE using the `hwe_exact_test` function. This is particularly useful for analyzing large datasets. In the example below, we specify a population size (N), the count of the minor allele (nA), and the count of heterozygotes (nAB). The theta parameter adjusts the test for inbreeding effects, with the option to compute it dynamically using `calc_theta_from_f(pA, f)`.
 ```
 library(hardyr)
+
+# Example data
 N <- 100000
-nA <- 1000  # minor allle count
-nAB <- 990 # heterozygotes
+nA <- 1000  # Minor allele count
+nAB <- 990  # Heterozygotes
+
+# Perform the HWE exact test
 hwe_exact_test(N, nA, nAB, theta = 4, alternative = "less")
 ```
-The theta parameter can be changed with `calc_theta_from_f(pA, f)` to test for HWE after accounting for inbreeding. Power calculation can be done for various population structures and sizes. Here is an example getting power for a populations across the MAF spectrum:
+To account for inbreeding when testing for HWE, you can dynamically calculate the theta parameter as shown:
+```
+theta <- calc_theta_from_f(pA, f)  # pA is the allele frequency, and f is the inbreeding coefficient
+```
+### Power Calculation Across MAF Spectrum
+For understanding the statistical power of HWE tests across different population sizes and MAFs, we can simulate scenarios using a combination of hardyr and ggplot2 for visualization. The following script demonstrates power calculation for multiple populations with varying F across a range of minor allele frequencies:
 ```
 library(hardyr)
 library(ggplot2)
 
-N_seq <- c(10000,50000)
+# Define sequences for population sizes and inbreeding coefficients
+N_seq <- c(10000, 50000)
 f_seq <- c(0, 0.02, 0.05)
-out <- do.call(rbind, lapply(f_seq, function(f){
-  do.call(rbind, lapply(N_seq, function(N){
+
+# Perform power calculations
+out <- do.call(rbind, lapply(f_seq, function(f) {
+  do.call(rbind, lapply(N_seq, function(N) {
     nA_seq <- seq(0, (N*2)*0.1, by=250)
-    do.call(rbind, lapply(nA_seq, function(nA){
+    power_vec <- vector()
+    do.call(rbind, lapply(nA_seq, function(nA) {
       pA <- nA / (N * 2)
       theta <- calc_theta_from_f(pA, f)
       power <- hwe_exact_power(N, nA=nA, theta=theta, alternative="less", sig.level = 0.05)
@@ -38,17 +54,21 @@ out <- do.call(rbind, lapply(f_seq, function(f){
   }))
 }))
 
-# plot the results
-out$N_label <- factor(to_thousands(out$N))
-out$F_label <- factor(paste0("F=",out$f))
+# Prepare data for plotting
+out$N_label <- factor(sprintf("%sK", out$N / 1000))
+out$F_label <- factor(sprintf("F=%.2f", out$f))
+
+# Plot the results
 ggplot(out, aes(x=pA, y=power)) +
   geom_point() +
   geom_line() +
-  facet_grid(F_label~N_label)
-```
+  facet_grid(F_label ~ N_label, labeller = label_both) +
+  theme_minimal() +
+  labs(x = "Minor Allele Frequency (pA)", y = "Power", title = "Power Calculation Across MAF Spectrum")
+````
+This script first calculates the power for detecting deviations from HWE across different population structures and sizes and frequencies of the minor allele. It then plots these calculations, helping to visualize the power of the HWE test under various conditions.
 
 <img src="img/sim_power01.png" width=50% height=50%>
-
 
 ## License
 This package is licensed under the MIT License - see the LICENSE file for details.
