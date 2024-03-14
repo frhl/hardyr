@@ -18,6 +18,9 @@ Numeric, the inbreeding coefficient `f` recalculated from `theta` and `pA`.
 Computes the inbreeding coefficient `f` based on the theta parameter used in
 Hardy-Weinberg equilibrium tests and allele frequency `p`.
 }
+\details{
+This functions come from https://cran.r-project.org/web/packages/HardyWeinberg/index.html
+}
 \examples{
 pA <- 0.2  # Minor allele frequency
 f <- 0.01 

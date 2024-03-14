@@ -18,6 +18,9 @@ Numeric, the calculated theta value.
 Computes the theta parameter used in Hardy-Weinberg equilibrium tests,
 taking into account the inbreeding coefficient.
 }
+\details{
+This functions come from https://cran.r-project.org/web/packages/HardyWeinberg/index.html
+}
 \examples{
 pA <- 0.2  # Minor allele frequency
 f <- 0.01 # Inbreeding coefficient
