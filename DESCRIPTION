@@ -9,7 +9,12 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Depends:
-    R (>= 3.6)
+    R (>= 3.6),
+    Rcpp
+Imports:
+    Rcpp
+LinkingTo:
+    Rcpp
 Suggests:
     devtools,
     testthat (>= 2.1.0)
@@ -27,3 +32,5 @@ Collate:
     'hwe_cond_p_het.R'
     'hwe_exact_power.R'
     'log_sum_exp.R'
+    'sum_probability_of_M_pairs.R'
+    'RcppExports.R'
