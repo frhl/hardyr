@@ -27,7 +27,7 @@
 #' nA <- 21
 #' nAB <- 17
 #' theta <- 4
-#' calc_log_p_nAB_heterozygotes(N, nA, nAB, theta)
+#' calc_log_p_hets(N, nA, nAB, theta)
 #'
 #' @export
 

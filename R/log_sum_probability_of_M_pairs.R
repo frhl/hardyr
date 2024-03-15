@@ -23,17 +23,16 @@
 #'
 #' @examples
 #' # Calculate the sum probability of M pairs for a given N, K, and M, with mid-p adjustment
-#' result <- sum_probability_of_M_pairs(N = 100, K = 20, M = 5, midp = TRUE)
+#' result <- log_sum_probability_of_M_pairs(N = 100, K = 20, M = 5, midp = TRUE)
 #' print(result)
 #'
 #' @export
 #'
-#' @importFrom Rcpp sourceCpp
-#'
-#' @useDynLib yourPackageName
-#' @importMethodsFrom Rcpp evalCpp
+#' @useDynLib hardyr, .registration = TRUE
+#' @importFrom Rcpp evalCpp
 
-sum_probability_of_M_pairs <- function(N, K, M, midp=TRUE)
+
+log_sum_probability_of_M_pairs <- function(N, K, M, midp=TRUE)
 {
 
   # N - individuals in population

@@ -1,36 +1,19 @@
 Package: hardyr
 Type: Package
 Title: Fast Hardy Weinberg testing
-Version: 0.0.1
+Version: 0.2
+Date: 2024-03-15
 Author: Frederik Lassen
 Maintainer: FL <flassen@well.ox.ac.uk>
 Description: Fast testing of Hardy Weinberg
-License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
-Depends:
-    R (>= 3.6),
-    Rcpp
-Imports:
-    Rcpp
-LinkingTo:
+License: 
+    GPL (>= 2)
+Imports: 
+    Rcpp (>= 1.0.9)
+LinkingTo: 
     Rcpp
 Suggests:
     devtools,
     testthat (>= 2.1.0)
 RoxygenNote: 7.2.3
-Collate:
-    'calc_log_p_hets.R'
-    'calc_log_norm_c.R'
-    'calc_norm_c.R'
-    'hwe_exact_test.R'
-    'misc.R'
-    'calc_f_from_theta.R'
-    'calc_null_p.R'
-    'calc_null_p_experimental.R'
-    'calc_theta_from_f.R'
-    'hwe_cond_p_het.R'
-    'hwe_exact_power.R'
-    'log_sum_exp.R'
-    'sum_probability_of_M_pairs.R'
-    'RcppExports.R'
