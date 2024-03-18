@@ -9,9 +9,6 @@ You can install the latest version of the package directly from GitHub:
 devtools::install_github("frhl/hardyr")
 ```
 
-## Details
-The `hardyr` package allows for precise hypothesis testing concerning Hardy-Weinberg equilibrium (HWE), even with large sample sizes. Below are examples demonstrating how to perform exact tests for P-values and conduct power calculations across a range of population structures and minor allele frequencies (MAFs).
-
 ## License
 This package is licensed under the MIT License - see the LICENSE file for details.
 
