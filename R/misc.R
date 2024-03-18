@@ -53,6 +53,7 @@ get_allele_counts<- function(N, K, M){
   stopifnot(is.numeric(M) && M >= 0)
   if (K>(N*2)) stop("Mutated haplotypes (K) cannot exceed total number of haplotypes in population (N*2)!")
   if ((2*M)>K) stop("Bi-allelic haplotypes (2*M) cannot exceed number of mutated haplotypes (K)!" ) 
+  if ((K-(2*M))>N) stop(paste0("There are more heterozygous carriers (K-2*M=",K-(2*M),") than samples (N=",N,")!"))
   return(c(M, (K-2*M), N-(K-2*M)-M))
 }
 
@@ -74,6 +75,7 @@ get_mac <- function(N, K, M){
   stopifnot(is.numeric(M) && M >= 0)
   if (K>(N*2)) stop("Mutated haplotypes (K) cannot exceed total number of haplotypes in population (N*2)!")
   if ((2*M)>K) stop("Bi-allelic haplotypes (2*M) cannot exceed number of mutated haplotypes (K)!" ) 
+  if ((K-(2*M))>N) stop(paste0("There are more heterozygous carriers (K-2*M=",K-(2*M),") than samples (N=",N,")!"))
   counts <- get_allele_counts(N, K, M)
   hom_alt <- counts[1]*2
   hets <- counts[2]

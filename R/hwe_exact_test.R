@@ -45,6 +45,7 @@ hwe_exact_test <- function(N, K, M, theta=4, alternative="less", use_mid_p=TRUE,
   # ensure that counts line up
   if (K>(N*2)) stop("Mutated haplotypes (K) cannot exceed total number of haplotypes in population (N*2)!")
   if ((2*M)>K) stop("Bi-allelic haplotypes (2*M) cannot exceed number of mutated haplotypes (K)!" ) 
+  if ((K-(2*M))>N) stop(paste0("There are more heterozygous carriers (K-2*M=",K-(2*M),") than samples (N=",N,")!"))
   
   # check if A is minor alleles otherwise flip
   actual_mac <- get_mac(N, K, M)
@@ -127,3 +128,5 @@ hwe_exact_test <- function(N, K, M, theta=4, alternative="less", use_mid_p=TRUE,
   
   return(p)
 }
+
+
