@@ -111,10 +111,6 @@ hwe_exact_power <- function(N, K, theta=NULL, f=NULL, sig.level=0.05, alternativ
   if (use_mid_p) {
     log_ps_hwe[start_index] <- log(1/2) + log_ps_hwe[start_index]
   }
-
-  #browser()
-  # p.value.vec
-  # 0.0003220612 0.0260869565 0.2579710145 1.0000000000 0.5053140097
   
   # Determine rejection criteria based on HWE (theta = 4)
   # Calculate power by summing probabilities under the 

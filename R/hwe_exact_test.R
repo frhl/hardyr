@@ -46,9 +46,14 @@ hwe_exact_test <- function(N, K, M, theta=4, alternative="less", use_mid_p=TRUE,
   if (K>(N*2)) stop("Mutated haplotypes (K) cannot exceed total number of haplotypes in population (N*2)!")
   if ((2*M)>K) stop("Bi-allelic haplotypes (2*M) cannot exceed number of mutated haplotypes (K)!" ) 
   
-    # check if A is minor alleles otherwise flip
-  if (K>N){
-    stop("Param 'K' is not the minor allele count! Did you specify the major allele count instead?")
+  # check if A is minor alleles otherwise flip
+  actual_mac <- get_mac(N, K, M)
+  if (actual_mac != K){
+    allele_flip <- TRUE
+    allele_counts <- get_allele_counts(N, K, M)
+    K <- get_mac(N, K, M)
+    M <- allele_counts[3]
+    warning(paste0("param 'K' is not the minor allele! Using K=",K," and M=",M, " instead!"))
   }
   
   # map to nA, nAB, nBB
@@ -59,10 +64,6 @@ hwe_exact_test <- function(N, K, M, theta=4, alternative="less", use_mid_p=TRUE,
   nB <- 2 * N - nA
   nAA <- (nA - nAB) / 2
   nBB <- (nB - nAB) / 2
-
-  # get genotype
-  genotype <- c(nAA, nAB, nBB)
-  
   
   # check allele counts
   stopifnot(nAA + nAB + nBB == N)
@@ -123,11 +124,6 @@ hwe_exact_test <- function(N, K, M, theta=4, alternative="less", use_mid_p=TRUE,
   } else if (alternative %in% "greater"){
     p <- sum(exp(log_ps[which(configurations>=nAB)]))
   }
-  
-  # deal with major/minor allele being flipped
-  #if (allele_flip){
-  #  p <- 1-p
-  #}
   
   return(p)
 }

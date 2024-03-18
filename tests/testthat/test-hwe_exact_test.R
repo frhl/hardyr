@@ -165,3 +165,12 @@ test_that("hwe_exact_test output matches log_sum_probability_of_M_pairs for even
   }
 })
 
+test_that("hwe_exact_test where the ref and alt alleles are flipped.", {
+  expect_equal(
+    hwe_exact_test(N = 100, K = 150, M = 51, theta = 4, alternative = "greater", use_mid_p = TRUE),
+    hwe_exact_test(N = 100, K = 50, M = 1, theta = 4, alternative = "greater", use_mid_p = TRUE),
+    tolerance = 1e-6
+  )
+})
+
+
