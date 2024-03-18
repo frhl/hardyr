@@ -8,7 +8,7 @@
 #'
 #' @param N Numeric, the total number of individuals in the population.
 #' @param K Numeric, the total number of mutated gene copies observed (equivalent to minor allele count)
-#' @param M Numeric, the number of samples that have are homozygous carriers
+#' @param M Numeric, the number of samples that have are homozygous carriers for the minor allele
 #' @param theta Numeric, the inbreeding coefficient parameter; defaults to 4. This parameter reflects 
 #' the degree of deviation from random mating.
 #' @param alternative Character, specifies the alternative hypothesis and must be one of "less", 
@@ -48,7 +48,7 @@ hwe_exact_test <- function(N, K, M, theta=4, alternative="less", use_mid_p=TRUE,
   
     # check if A is minor alleles otherwise flip
   if (K>N){
-    stop(paste("not yet implemented. K=",K,".. N=",N))
+    stop("Param 'K' is not the minor allele count! Did you specify the major allele count instead?")
   }
   
   # map to nA, nAB, nBB

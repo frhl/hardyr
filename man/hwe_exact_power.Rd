@@ -27,7 +27,7 @@ hwe_exact_power(
 
 \item{use_mid_p}{Logical, indicates whether to use the mid-p correction for the p-value calculation; defaults to FALSE. The mid-p correction is applied only to HWE p-values.}
 
-\item{alternative}{Character, specifies the direction of the alternative hypothesis; currently only "less" is implemented.}
+\item{alternative}{Character, specifies the direction of the alternative hypothesis; currently only "less" and "greater" is implemented.}
 }
 \value{
 Numeric, the power of the Hardy-Weinberg Equilibrium exact test.

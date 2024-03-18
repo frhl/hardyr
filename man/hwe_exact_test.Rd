@@ -19,7 +19,7 @@ hwe_exact_test(
 
 \item{K}{Numeric, the total number of mutated gene copies observed (equivalent to minor allele count)}
 
-\item{M}{Numeric, the number of samples that have are homozygous carriers}
+\item{M}{Numeric, the number of samples that have are homozygous carriers for the minor allele}
 
 \item{theta}{Numeric, the inbreeding coefficient parameter; defaults to 4. This parameter reflects 
 the degree of deviation from random mating.}

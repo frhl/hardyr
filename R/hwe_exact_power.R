@@ -14,7 +14,7 @@
 #' @param f Numeric, optional, inbreeding coefficient; if not provided, `theta` must be specified. Used to calculate `theta` if `theta` is not directly provided.
 #' @param sig.level Numeric, significance level for identifying the rejection region under the null hypothesis; defaults to 0.05.
 #' @param use_mid_p Logical, indicates whether to use the mid-p correction for the p-value calculation; defaults to FALSE. The mid-p correction is applied only to HWE p-values.
-#' @param alternative Character, specifies the direction of the alternative hypothesis; currently only "less" is implemented.
+#' @param alternative Character, specifies the direction of the alternative hypothesis; currently only "less" and "greater" is implemented.
 #'
 #'
 #' @return Numeric, the power of the Hardy-Weinberg Equilibrium exact test.
@@ -41,8 +41,9 @@
 
 hwe_exact_power <- function(N, K, theta=NULL, f=NULL, sig.level=0.05, use_mid_p=FALSE, alternative="less"){
 
-  stopifnot(alternative %in% "less")
+  stopifnot(alternative %in% c("less", "greater"))
   if (!is.null(theta) & !is.null(f)) stop("Only one of param 'theta' or 'f' can be set!")
+  if (K>N) stop("'K' is not the minor allele count!")
   
   # map to nA, nAB, nBB
   nA <- K
@@ -110,13 +111,23 @@ hwe_exact_power <- function(N, K, theta=NULL, f=NULL, sig.level=0.05, use_mid_p=
   if (use_mid_p) {
     log_ps_hwe[start_index] <- log(1/2) + log_ps_hwe[start_index]
   }
+
+  #browser()
+  # p.value.vec
+  # 0.0003220612 0.0260869565 0.2579710145 1.0000000000 0.5053140097
   
   # Determine rejection criteria based on HWE (theta = 4)
-  rejection_criteria <- which(exp(log_ps_hwe) < sig.level)
-  
   # Calculate power by summing probabilities under the 
   # current theta for rejected configurations
+  if (alternative == "greater"){
+     ps_hwe_cumsum <- rev(cumsum(rev(exp(log_ps_hwe))))
+  } else if (alternative == "less"){
+     ps_hwe_cumsum <- cumsum(exp(log_ps_hwe))
+  }
+  
+  rejection_criteria <- which(ps_hwe_cumsum < sig.level)
   power <- sum(exp(log_ps[rejection_criteria]))
+  
   return(power)
 }
 
