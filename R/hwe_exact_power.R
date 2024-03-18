@@ -32,14 +32,14 @@
 #'
 #' @examples
 #' # Calculate power with specified theta
-#' power <- hwe_exact_power(N = 100, K = 14, theta = 2, sig.level = 0.05, use_mid_p = FALSE)
+#' power <- hwe_exact_power(N = 100, K = 14, theta = 2, sig.level = 0.05, alternative="greater")
 #'
 #' # Calculate power with specified inbreeding coefficient f
-#' power_f <- hwe_exact_power(N = 100, K = 14, f = 0.01, sig.level = 0.05, use_mid_p = FALSE)
+#' power_f <- hwe_exact_power(N = 100, K = 14, f = 0.01, sig.level = 0.05)
 #'
 #' @export
 
-hwe_exact_power <- function(N, K, theta=NULL, f=NULL, sig.level=0.05, use_mid_p=FALSE, alternative="less"){
+hwe_exact_power <- function(N, K, theta=NULL, f=NULL, sig.level=0.05, alternative="less", use_mid_p=FALSE){
 
   stopifnot(alternative %in% c("less", "greater"))
   if (!is.null(theta) & !is.null(f)) stop("Only one of param 'theta' or 'f' can be set!")

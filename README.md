@@ -13,17 +13,17 @@ devtools::install_github("frhl/hardyr")
 The `hardyr` package allows for precise hypothesis testing concerning Hardy-Weinberg equilibrium (HWE), even with large sample sizes. Below are examples demonstrating how to perform exact tests for P-values and conduct power calculations across a range of population structures and minor allele frequencies (MAFs).
 
 ### Performing Exact HWE Testing
-You can perform an exact test for HWE using the `hwe_exact_test` function. This is particularly useful for analyzing large datasets. In the example below, we specify a population size (N), the count of the minor allele (nA), and the count of heterozygotes (nAB). The theta parameter adjusts the test for inbreeding effects, with the option to compute it dynamically using `calc_theta_from_f(pA, f)`.
+You can perform an exact test for HWE using the `hwe_exact_test` function. This is particularly useful for analyzing large datasets. In the example below, we specify a population size (N), the count of the minor allele (K), and the count of homozygotes (M). The theta parameter adjusts the test for inbreeding effects, with the option to compute it dynamically using `calc_theta_from_f(pA, f)`.
 ```
 library(hardyr)
 
 # Example data
 N <- 100000
-nA <- 1000  # Minor allele count
-nAB <- 990  # Heterozygotes
+K <- 1000  # Minor allele count
+M <- 24  # Homozygotes
 
 # Perform the HWE exact test
-hwe_exact_test(N, nA, nAB, theta = 4, alternative = "less")
+hwe_exact_test(N, K, nM, theta = 4, alternative = "less")
 ```
 To account for inbreeding when testing for HWE, you can dynamically calculate the theta parameter as shown:
 ```
@@ -47,7 +47,7 @@ out <- do.call(rbind, lapply(f_seq, function(f) {
     do.call(rbind, lapply(nA_seq, function(nA) {
       pA <- nA / (N * 2)
       theta <- calc_theta_from_f(pA, f)
-      power <- hwe_exact_power(N, nA=nA, theta=theta, alternative="less", sig.level = 0.05)
+      power <- hwe_exact_power(N, K=nA, theta=theta, alternative="less", sig.level = 0.05)
       power_vec <- c(power_vec, power)
       data.table(N, pA, nA, f, power)
     }))

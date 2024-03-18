@@ -10,8 +10,8 @@ hwe_exact_power(
   theta = NULL,
   f = NULL,
   sig.level = 0.05,
-  use_mid_p = FALSE,
-  alternative = "less"
+  alternative = "less",
+  use_mid_p = FALSE
 )
 }
 \arguments{
@@ -25,9 +25,9 @@ hwe_exact_power(
 
 \item{sig.level}{Numeric, significance level for identifying the rejection region under the null hypothesis; defaults to 0.05.}
 
-\item{use_mid_p}{Logical, indicates whether to use the mid-p correction for the p-value calculation; defaults to FALSE. The mid-p correction is applied only to HWE p-values.}
-
 \item{alternative}{Character, specifies the direction of the alternative hypothesis; currently only "less" and "greater" is implemented.}
+
+\item{use_mid_p}{Logical, indicates whether to use the mid-p correction for the p-value calculation; defaults to FALSE. The mid-p correction is applied only to HWE p-values.}
 }
 \value{
 Numeric, the power of the Hardy-Weinberg Equilibrium exact test.
@@ -54,9 +54,9 @@ or other forms of non-random mating.
 }
 \examples{
 # Calculate power with specified theta
-power <- hwe_exact_power(N = 100, K = 14, theta = 2, sig.level = 0.05, use_mid_p = FALSE)
+power <- hwe_exact_power(N = 100, K = 14, theta = 2, sig.level = 0.05, alternative="greater")
 
 # Calculate power with specified inbreeding coefficient f
-power_f <- hwe_exact_power(N = 100, K = 14, f = 0.01, sig.level = 0.05, use_mid_p = FALSE)
+power_f <- hwe_exact_power(N = 100, K = 14, f = 0.01, sig.level = 0.05)
 
 }
