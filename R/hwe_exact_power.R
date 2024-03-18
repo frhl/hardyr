@@ -9,7 +9,7 @@
 #' is performed under the alternative hypothesis conditions.
 #'
 #' @param N Integer, total number of diploid individuals in the population.
-#' @param nA Integer, total number of copies of the minor allele in the population.
+#' @param K Integer, total number of copies of the minor allele in the population (equivalent to minor allele count)
 #' @param theta Numeric, optional, deviation parameter reflecting inbreeding coefficient; if not provided, `f` must be specified.
 #' @param f Numeric, optional, inbreeding coefficient; if not provided, `theta` must be specified. Used to calculate `theta` if `theta` is not directly provided.
 #' @param sig.level Numeric, significance level for identifying the rejection region under the null hypothesis; defaults to 0.05.
@@ -32,18 +32,20 @@
 #'
 #' @examples
 #' # Calculate power with specified theta
-#' power <- hwe_exact_power(N = 100, nA = 14, theta = 2, sig.level = 0.05, use_mid_p = FALSE)
+#' power <- hwe_exact_power(N = 100, K = 14, theta = 2, sig.level = 0.05, use_mid_p = FALSE)
 #'
 #' # Calculate power with specified inbreeding coefficient f
-#' power_f <- hwe_exact_power(N = 100, nA = 14, f = 0.01, sig.level = 0.05, use_mid_p = FALSE)
+#' power_f <- hwe_exact_power(N = 100, K = 14, f = 0.01, sig.level = 0.05, use_mid_p = FALSE)
 #'
 #' @export
 
-hwe_exact_power <- function(N, nA, theta=NULL, f=NULL, sig.level=0.05, use_mid_p=FALSE, alternative="less"){
+hwe_exact_power <- function(N, K, theta=NULL, f=NULL, sig.level=0.05, use_mid_p=FALSE, alternative="less"){
 
   stopifnot(alternative %in% "less")
   if (!is.null(theta) & !is.null(f)) stop("Only one of param 'theta' or 'f' can be set!")
   
+  # map to nA, nAB, nBB
+  nA <- K
   nAB <- nA
   nB <- 2 * N - nA
   nAA <- (nA - nAB) / 2

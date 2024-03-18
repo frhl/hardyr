@@ -6,33 +6,67 @@
 #' The function allows for testing whether the observed heterozygosity is significantly less than,
 #' greater than, or different from the expected heterozygosity under Hardy-Weinberg equilibrium.
 #'
-#' @param N Integer, the total number of diploid individuals in the population.
-#' @param nA Integer, the total number of copies of the minor allele in the population.
-#' @param nAB Integer, the observed number of heterozygotes.
-#' @param theta Numeric, the theta parameter reflecting the inbreeding coefficient; defaults to 4.
-#' @param alternative Character, specifies the alternative hypothesis and must be one of "less", "greater", or "two.sided".
+#' @param N Numeric, the total number of individuals in the population.
+#' @param K Numeric, the total number of mutated gene copies observed (equivalent to minor allele count)
+#' @param M Numeric, the number of samples that have are homozygous carriers
+#' @param theta Numeric, the inbreeding coefficient parameter; defaults to 4. This parameter reflects 
+#' the degree of deviation from random mating.
+#' @param alternative Character, specifies the alternative hypothesis and must be one of "less", 
+#' "greater", or "two.sided". "Less" tests for a deficit of heterozygotes (indicating excess homozygosity),
+#' and "greater" for an excess of heterozygotes.
 #' @param use_mid_p Logical, indicating whether to use the mid-p correction for the p-value calculation in one-sided tests; defaults to TRUE.
-#'
+#' @param debug Logical, if TRUE, the function will enter debug mode for troubleshooting; defaults to FALSE.
+#' 
 #' @return Numeric, the p-value for the test.
 #'
 #' @examples
 #' N <- 100
-#' nA <- 21
-#' nAB <- 17
-#' p_value <- hwe_exact_test(N, nA, nAB, theta = 4, alternative = "less")
+#' K <- 21 # minor allele count
+#' M <- 3 # 3 homozygous carriers
+#' p_value <- hwe_exact_test(N, K, M, theta = 4, alternative = "less")
 #'
 #' @export
 
 
-hwe_exact_test <- function(N, nA, nAB, theta=4, alternative="less", use_mid_p=TRUE){
+hwe_exact_test <- function(N, K, M, theta=4, alternative="less", use_mid_p=TRUE, debug=FALSE){
   
+  if (debug) browser()
+  
+  # some tests
+  allele_flip <- FALSE
   stopifnot(alternative %in% c("less", "greater"))
-  stopifnot(nA>=nAB) # expecting more minor alleles than heterzygotes
+  stopifnot(is.numeric(N) && N > 0)
+  stopifnot(is.numeric(K) && K >= 0)
+  stopifnot(is.numeric(M) && M >= 0)
+  stopifnot(is.numeric(theta))
+  stopifnot(is.logical(use_mid_p))
+  stopifnot(is.logical(debug))
+  
+  # ensure that counts line up
+  if (K>(N*2)) stop("Mutated haplotypes (K) cannot exceed total number of haplotypes in population (N*2)!")
+  if ((2*M)>K) stop("Bi-allelic haplotypes (2*M) cannot exceed number of mutated haplotypes (K)!" ) 
+  
+    # check if A is minor alleles otherwise flip
+  if (K>N){
+    stop(paste("not yet implemented. K=",K,".. N=",N))
+  }
+  
+  # map to nA, nAB, nBB
+  nAB <- K - M*2
+  nA <- K
   
   # always estimate these guys
   nB <- 2 * N - nA
   nAA <- (nA - nAB) / 2
   nBB <- (nB - nAB) / 2
+
+  # get genotype
+  genotype <- c(nAA, nAB, nBB)
+  
+  
+  # check allele counts
+  stopifnot(nAA + nAB + nBB == N)
+  stopifnot(nAA>=0, nBB>=0, nB>=0)
   
   # get all possible configurations
   is_odd <- as.integer(nA%%2==1)
@@ -89,6 +123,11 @@ hwe_exact_test <- function(N, nA, nAB, theta=4, alternative="less", use_mid_p=TR
   } else if (alternative %in% "greater"){
     p <- sum(exp(log_ps[which(configurations>=nAB)]))
   }
+  
+  # deal with major/minor allele being flipped
+  #if (allele_flip){
+  #  p <- 1-p
+  #}
   
   return(p)
 }

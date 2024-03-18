@@ -4,20 +4,33 @@
 \alias{hwe_exact_test}
 \title{Perform an Exact Test under Hardy-Weinberg Equilibrium}
 \usage{
-hwe_exact_test(N, nA, nAB, theta = 4, alternative = "less", use_mid_p = TRUE)
+hwe_exact_test(
+  N,
+  K,
+  M,
+  theta = 4,
+  alternative = "less",
+  use_mid_p = TRUE,
+  debug = FALSE
+)
 }
 \arguments{
-\item{N}{Integer, the total number of diploid individuals in the population.}
+\item{N}{Numeric, the total number of individuals in the population.}
 
-\item{nA}{Integer, the total number of copies of the minor allele in the population.}
+\item{K}{Numeric, the total number of mutated gene copies observed (equivalent to minor allele count)}
 
-\item{nAB}{Integer, the observed number of heterozygotes.}
+\item{M}{Numeric, the number of samples that have are homozygous carriers}
 
-\item{theta}{Numeric, the theta parameter reflecting the inbreeding coefficient; defaults to 4.}
+\item{theta}{Numeric, the inbreeding coefficient parameter; defaults to 4. This parameter reflects 
+the degree of deviation from random mating.}
 
-\item{alternative}{Character, specifies the alternative hypothesis and must be one of "less", "greater", or "two.sided".}
+\item{alternative}{Character, specifies the alternative hypothesis and must be one of "less", 
+"greater", or "two.sided". "Less" tests for a deficit of heterozygotes (indicating excess homozygosity),
+and "greater" for an excess of heterozygotes.}
 
 \item{use_mid_p}{Logical, indicating whether to use the mid-p correction for the p-value calculation in one-sided tests; defaults to TRUE.}
+
+\item{debug}{Logical, if TRUE, the function will enter debug mode for troubleshooting; defaults to FALSE.}
 }
 \value{
 Numeric, the p-value for the test.
@@ -31,8 +44,8 @@ greater than, or different from the expected heterozygosity under Hardy-Weinberg
 }
 \examples{
 N <- 100
-nA <- 21
-nAB <- 17
-p_value <- hwe_exact_test(N, nA, nAB, theta = 4, alternative = "less")
+K <- 21 # minor allele count
+M <- 3 # 3 homozygous carriers
+p_value <- hwe_exact_test(N, K, M, theta = 4, alternative = "less")
 
 }

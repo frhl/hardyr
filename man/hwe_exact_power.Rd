@@ -6,7 +6,7 @@
 \usage{
 hwe_exact_power(
   N,
-  nA,
+  K,
   theta = NULL,
   f = NULL,
   sig.level = 0.05,
@@ -17,7 +17,7 @@ hwe_exact_power(
 \arguments{
 \item{N}{Integer, total number of diploid individuals in the population.}
 
-\item{nA}{Integer, total number of copies of the minor allele in the population.}
+\item{K}{Integer, total number of copies of the minor allele in the population (equivalent to minor allele count)}
 
 \item{theta}{Numeric, optional, deviation parameter reflecting inbreeding coefficient; if not provided, `f` must be specified.}
 
@@ -54,9 +54,9 @@ or other forms of non-random mating.
 }
 \examples{
 # Calculate power with specified theta
-power <- hwe_exact_power(N = 100, nA = 14, theta = 2, sig.level = 0.05, use_mid_p = FALSE)
+power <- hwe_exact_power(N = 100, K = 14, theta = 2, sig.level = 0.05, use_mid_p = FALSE)
 
 # Calculate power with specified inbreeding coefficient f
-power_f <- hwe_exact_power(N = 100, nA = 14, f = 0.01, sig.level = 0.05, use_mid_p = FALSE)
+power_f <- hwe_exact_power(N = 100, K = 14, f = 0.01, sig.level = 0.05, use_mid_p = FALSE)
 
 }
