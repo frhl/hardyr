@@ -1,7 +1,7 @@
 Package: hardyr
 Type: Package
 Title: Fast Hardy Weinberg testing
-Version: 0.2
+Version: 0.2.1
 Date: 2024-03-15
 Author: Frederik Lassen
 Maintainer: FL <flassen@well.ox.ac.uk>
