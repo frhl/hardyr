@@ -14,8 +14,8 @@
 #' @param alternative Character, specifies the alternative hypothesis and must be one of "less", 
 #' "greater", or "two.sided". "Less" tests for a deficit of heterozygotes (indicating excess homozygosity),
 #' and "greater" for an excess of heterozygotes.
-#' @param use_mid_p Logical, indicating whether to use the mid-p correction for the p-value calculation in one-sided tests; defaults to TRUE.
-#' @param debug Logical, if TRUE, the function will enter debug mode for troubleshooting; defaults to FALSE.
+#' @param use_mid_p Logical, indicating whether to use the mid-p correction for the p-value calculation in one-sided tests
+#' @param debug Logical, if TRUE, the function will enter debug mode for troubleshooting.
 #' 
 #' @return Numeric, the p-value for the test.
 #'
@@ -28,7 +28,7 @@
 #' @export
 
 
-hwe_exact_test <- function(N, K, M, theta=4, alternative="less", use_mid_p=TRUE, debug=FALSE){
+hwe_exact_test <- function(N, K, M, theta=4, alternative="greater", use_mid_p=FALSE, debug=FALSE){
   
   if (debug) browser()
   
